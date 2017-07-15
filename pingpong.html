@@ -1,0 +1,99 @@
+<!DOCTYPE html>												
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="one"></div>
+<div id="two"></div>
+<div id="three"></div>
+<style type="text/css">
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	#one{
+		position: fixed;
+		height: 100px;
+		width: 100px;
+		background-color: red;
+		border-radius: 50px;
+	}
+	#two{
+		position: fixed;
+		height: 200px;
+		width: 20px;
+		background-color: blue;
+	}
+	#three{
+		position: fixed;
+		height: 200px;
+		width: 20px;
+		background-color: green;
+	}
+
+	body{
+		height: 100vh;
+		width: 100vw;
+    	background-image: url("index.jpeg");
+	}
+</style>
+
+<script type="text/javascript">
+console.log('scriptstarted');
+
+var element = document.getElementById('one');
+var bar1 = document.getElementById('two');
+var bar2 = document.getElementById('three');
+element.style.top = '0px';
+element.style.left = '0px';
+var maxHeight = document.body.clientHeight;
+var maxWidth = document.body.clientWidth;
+var dx=10;
+var dy=10;
+var dbar=50;
+console.log('bar1', bar1);
+console.log('bar2', bar2);
+bar1.style.top = '200px';
+bar1.style.left = '0px';
+bar2.style.top = '200px';
+bar2.style.left = (maxWidth-20)+'px';
+number=setInterval(function(){
+	if(parseFloat(element.style.top.slice(0,-2))+dy<=0 ||parseFloat(element.style.top.slice(0,-2))+100+dy>=maxHeight)
+	{
+		dy=-dy;
+	}
+	if(parseFloat(element.style.left.slice(0,-2))+dx<=0 &&parseFloat(element.style.top.slice(0,-2))+100> parseFloat(bar1.style.top.slice(0,-2)) && parseFloat(element.style.top.slice(0,-2))+100<parseFloat(bar1.style.top.slice(0,-2))+200)
+		{
+			dx=-dx;
+		}
+	if(parseFloat(element.style.left.slice(0,-2))+100+dx>=maxWidth&& parseFloat(element.style.top.slice(0,-2))+100>parseFloat(bar2.style.top.slice(0,-2)) && parseFloat(element.style.top.slice(0,-2))+100<parseFloat(bar2.style.top.slice(0,-2))+200)
+		{
+			dx=-dx;
+		}
+	element.style.top=parseFloat(element.style.top.slice(0,-2))+dy+'px';
+	element.style.left=parseFloat(element.style.left.slice(0,-2))+dx+'px';
+	if(parseFloat(element.style.left.slice(0,-2))-100>=maxWidth || parseFloat(element.style.left.slice(0,-2))+100<=0)
+	{
+		clearInterval(number);
+	}
+},50);
+	document.body.addEventListener('keydown',function(event){
+		if(event.key== "z" && parseFloat(bar1.style.top.slice(0,-2))+100<maxHeight){
+			bar1.style.top = parseFloat(bar1.style.top.slice(0,-2)) + dbar + 'px';
+		}
+		if(event.key == "a" && parseFloat(bar1.style.top.slice(0,-2))+100>0){
+			bar1.style.top = parseFloat(bar1.style.top.slice(0,-2)) - dbar + 'px';
+		}
+		if(event.key == "m" && parseFloat(bar2.style.top.slice(0,-2))+100<maxHeight){
+			bar2.style.top = parseFloat(bar2.style.top.slice(0,-2)) + dbar + 'px';
+		}
+		if(event.key == "l" && parseFloat(bar2.style.top.slice(0,-2))+100>0){
+			bar2.style.top = parseFloat(bar2.style.top.slice(0,-2)) - dbar + 'px';
+		}
+
+});
+
+</script>
+</body>
+</html>
